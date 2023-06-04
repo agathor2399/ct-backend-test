@@ -1,14 +1,14 @@
-import * as express from 'express';
-import { Parameters, CTSearch } from './types';
-const app = express();
-const port = 3000;
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import { Logger, ValidationPipe } from '@nestjs/common';
+import { config } from 'dotenv';
 
-app.post('/', (req, res) => {
-  const body: Parameters = req.body;
-
-  res.send('Hello World!');
-});
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+async function bootstrap() {
+  config();
+  const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+  await app.listen(process.env.PORT, () => {
+    Logger.log(`Example app listening on port ${process.env.PORT}`);
+  });
+}
+bootstrap();

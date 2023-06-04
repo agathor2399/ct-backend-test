@@ -20,7 +20,7 @@ services:
     volumes:
       - "mongoDB:/data/db"
       - "dbConfig:/data/configdb"
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ../../config/inits/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - CT
     
@@ -41,9 +41,9 @@ services:
     image: tws.mocksserver
     restart: always
     build:
-      context: ./mocks
+      context: ../../mocks
     volumes:
-      - "./mocks/servivuelo:/usr/app/input"
+      - "../../mocks/servivuelo:/usr/app/input"
     environment:
       - MOCKS_LOG=debug
       - VIRTUAL_PORT=3100
