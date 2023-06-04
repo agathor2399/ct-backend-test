@@ -20,8 +20,9 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@/*": ["src/*"],
-      "@assets": ["assets/*"],
-      "@config": ["config/*"]
+      "@assets/*": ["assets/*"],
+      "@config/*": ["config/*"],
+      "@common/*": ["src/common/*"]
     }
   }
 }
