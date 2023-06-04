@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import environmentVars from '@config/environment';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import environmentVars from '@config/environment';
       isGlobal: true,
       load: [environmentVars],
     }),
+    HttpModule,
   ],
   controllers: [AppController],
   providers: [AppService],
