@@ -8,15 +8,17 @@ interface IPrice {
   };
 }
 
+export type InputPrice = {
+  total: number;
+  breakdown: {
+    adult: number;
+    children: number;
+  };
+};
+
 export class Price extends ValueObject<IPrice> {
-  get total(): number {
-    return this.props.total;
-  }
-  get totalAdults(): number {
-    return this.props.breakdown.adult;
-  }
-  get totalChildrens(): number {
-    return this.props.breakdown.children;
+  get value() {
+    return { ...this.props };
   }
 
   protected validate(props: IPrice): void {

@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Search } from './interface/dtos/search-dto';
 import { SaveCTSearch } from './interface/dtos/saveCTSearch-dto';
+import { Response } from 'express';
 
 @Controller()
 export class AppController {
@@ -17,8 +18,15 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Post()
-  save(@Body() data: SaveCTSearch): string {
-    return this.appService.getHello();
+  @Post('ct-search/save')
+  async save(@Body() data: SaveCTSearch, @Res() res: Response): Promise<any> {
+    try {
+      await this.appService.saveCTSearch(data);
+      return res.status(201).send();
+    } catch (e) {
+      return res.status(400).json({
+        message: e.message || 'Unexpected error',
+      });
+    }
   }
 }

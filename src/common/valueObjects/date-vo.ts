@@ -1,6 +1,10 @@
 import { ValueObject } from '../valueObject.base';
 
 export class DateVO extends ValueObject<Date> {
+  get value(): Date {
+    return this.props.value;
+  }
+
   constructor(value: Date | number | string) {
     super({ value: new Date(value) });
     this.validate();
